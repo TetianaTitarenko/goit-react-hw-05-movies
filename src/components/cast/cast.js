@@ -2,9 +2,9 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 const Cast = () => {
-    // useEffect(() => {
-    //     // http-запит
-    // }, [])
+    useEffect(() => {
+        // http-запит
+    }, [])
 
     const {castId} = useParams()
     return <div>

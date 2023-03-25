@@ -2,9 +2,9 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 const Reviews = () => {
-    // useEffect(() => {
-    //     // http-запит
-    // }, [])
+    useEffect(() => {
+        // http-запит
+    }, [])
 
     const {reviewsId} = useParams()
     return <div>
