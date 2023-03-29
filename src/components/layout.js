@@ -1,15 +1,22 @@
 import { NavLink, Outlet } from "react-router-dom"
 import { Suspense } from "react"
 import css from "./layout.module.css"
+import styled from 'styled-components';
 
-const Layout = () => {
+const StyledLink = styled(NavLink)`
+   &.active {
+      color: tomato;
+   }
+`;
+
+const SharedLayout = () => {
   return <div className={css.layout}>
       <ul className={css.nav}>
         <li>
-          <NavLink to='/'>Home</NavLink>          
+          <StyledLink to='/'>Home</StyledLink>          
         </li>
         <li>
-          <NavLink to='/movies'>Search</NavLink>        
+          <StyledLink to='/movies'>Search</StyledLink>        
         </li>
       </ul>
       <main className={css.content}>
@@ -20,4 +27,4 @@ const Layout = () => {
     </div>
 }
 
-export default Layout
+export default SharedLayout

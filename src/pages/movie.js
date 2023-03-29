@@ -3,6 +3,13 @@ import { NavLink, useParams, Outlet, Link, useLocation } from "react-router-dom"
 import { BASE_URL, API_KEY, IMAGE_BASE_URL, noImage } from '../components/url';
 import axios from 'axios';
 import css from './movie.module.css'
+import styled from 'styled-components';
+
+const StyledLink = styled(NavLink)`
+   &.active {
+      color: tomato;
+   }
+`;
 
 const Movie = () => {
     const { id } = useParams()
@@ -74,14 +81,14 @@ const Movie = () => {
         <ul>
             <p> Additional information</p>
             <li className={css.link}>
-                <NavLink to='cast'>
+                <StyledLink to='cast'>
                     Cast
-                </NavLink>                
+                </StyledLink>                
             </li>
             <li className={css.link}>
-                <NavLink to='reviews'>
+                <StyledLink to='reviews'>
                   Reviews
-                </NavLink>        
+                </StyledLink>        
             </li>
         </ul>
         <Suspense>
