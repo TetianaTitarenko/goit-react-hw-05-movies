@@ -8,15 +8,14 @@ const Layout = () => {
           <NavLink to='/'>Home</NavLink>          
         </li>
         <li>
-          <NavLink to='/search/search-movies'>Search</NavLink>        
+          <NavLink to='/movies'>Search</NavLink>        
         </li>
-        {/* <NavLink to='/movies/:movieId'>Movie</NavLink>         */}
-        </ul>
+      </ul>
       <main>
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet /> 
         </Suspense>
-        </main>
+      </main>
     </div>
 }
 

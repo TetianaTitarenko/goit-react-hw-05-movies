@@ -5,7 +5,6 @@ import axios from 'axios';
 const Home = () => {
         const [movies, setMovies] = useState([]);
 // https://api.themoviedb.org/3/trending/movie/day?api_key=88e770eb9f81181b32f3aee56f617fc7
-    console.log(movies)
     
     useEffect(() => {
             const abortController = new AbortController();
@@ -25,11 +24,11 @@ const Home = () => {
       abortController.abort();
     };
   }, []);
-    
     return <div>
 {movies.map((movie) => (<ul key={movie.id}>
-            <Link to='movies/:movieId'>{movie.title}</Link>
-        </ul>))}
+  <Link to={`movies/${movie.id}`}>{movie.title}</Link>
+      </ul>))
+      }
     </div>
 }
 

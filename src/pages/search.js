@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react"
+import { useState} from "react"
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 // const API_KEY = '88e770eb9f81181b32f3aee56f617fc7';
@@ -11,13 +11,14 @@ const Search = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams();
-  const name = searchParams.get("name") ?? '';
-  
-  useEffect(() => {
-    const abortController = new AbortController();
+  const q = searchParams.get("q") ?? '';
+
+    const onSubmit = e => {
+      e.preventDefault();
+      const abortController = new AbortController();
     async function fetchData() {
       try {
-        const url = `https://api.themoviedb.org/3/search/movie?query=${name}&api_key=88e770eb9f81181b32f3aee56f617fc7&page=1`;
+        const url = `https://api.themoviedb.org/3/search/movie?query=${q}&api_key=88e770eb9f81181b32f3aee56f617fc7&page=1`;
         const response = await axios.get(url, {
           signal: abortController.signal,
         });
@@ -30,31 +31,27 @@ const Search = () => {
     return () => {
       abortController.abort();
     };
-  }, [name]);
-
-    const onSubmit = e => {
-      e.preventDefault();
-      console.log(name)
+      // console.log(q)
     }
     const updateQueryString = e => {
       if (e.target.value === '') {
         return setSearchParams({});
       }
-      setSearchParams({name : e.target.value });
+      setSearchParams({q : e.target.value });
     };
       const visibleMovies = movies.filter((movie) =>
-      movie.title.toLowerCase().includes(name.toLowerCase())
+      movie.title.toLowerCase().includes(q.toLowerCase())
     );
 
     return     <div>
       <h1>Movie</h1>
       <form onSubmit={onSubmit}>
-        <input type="text" value={name} onChange={updateQueryString}/>
+        <input type="text" value={q} onChange={updateQueryString}/>
         <button type="submit">Search</button>
       </form>
 
         {visibleMovies.map((movie) => (<ul key={movie.id}>
-            <Link to='/movies/:movieId' state={{from: location}}>{movie.title}</Link>
+            <Link to={`${movie.id}`} state={{from: location}}>{movie.title}</Link>
         </ul>))}
     </div>
 }
