@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { BASE_URL, API_KEY } from '../url';
 import axios from 'axios';
-
-// https://api.themoviedb.org/3/movie/804150/reviews?api_key=88e770eb9f81181b32f3aee56f617fc7&language=en-US&page=1
+import css from "./reviews.module.css"
 
 const Reviews = () => {
     const { id } = useParams()
@@ -12,7 +12,7 @@ const Reviews = () => {
         const abortController = new AbortController();
         async function fetchData() {
             try {
-                const url = `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=88e770eb9f81181b32f3aee56f617fc7&language=en-US&page=1`;
+                const url = `${BASE_URL}movie/${id}/reviews?${API_KEY}&language=en-US&page=1`;
                 const response = await axios.get(url, {
                     signal: abortController.signal,
                 });
@@ -30,11 +30,11 @@ const Reviews = () => {
 
     return <ul>        
         {movieDetails.map((movieDetail) =>
-        (<li key={movieDetail.id}>
-            <h2>
+        (<li key={movieDetail.id} className={css.li}>
+            <h2 className={css.title}>
                 {movieDetail.author}
             </h2>
-            <p>
+            <p className={css.text}>
                 {movieDetail.content}
             </p>
         </li>))

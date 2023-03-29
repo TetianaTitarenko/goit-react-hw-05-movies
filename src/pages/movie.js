@@ -1,8 +1,8 @@
-// import Cast from "components/cast/cast"
-// import Reviews from "components/reviews/reviews"
 import { Suspense, useEffect, useRef, useState } from "react"
 import { NavLink, useParams, Outlet, Link, useLocation } from "react-router-dom"
+import { BASE_URL, API_KEY, IMAGE_BASE_URL, noImage } from '../components/url';
 import axios from 'axios';
+import css from './movie.module.css'
 
 const Movie = () => {
     const { id } = useParams()
@@ -10,15 +10,12 @@ const Movie = () => {
     console.log(id)
     const location = useLocation()
     const backLocationRef = useRef(location.state?.from ?? '/')
-    const noImage = 'https://via.placeholder.com/200x300.png?text=No+Image';
-
-    // https://api.themoviedb.org/3/movie/343611?api_key=88e770eb9f81181b32f3aee56f617fc7
 
     useEffect(() => {
             const abortController = new AbortController();
     async function fetchData() {
         try {
-            const url = `https://api.themoviedb.org/3/movie/${id}?api_key=88e770eb9f81181b32f3aee56f617fc7`;
+            const url = `${BASE_URL}movie/${id}?${API_KEY}`;
             const response = await axios.get(url, {
                 signal: abortController.signal,
             });
@@ -28,6 +25,7 @@ const Movie = () => {
       }
     }
         fetchData();
+
     return () => {
       abortController.abort();
     };
@@ -38,11 +36,11 @@ const Movie = () => {
     const genreNames = genres && genres.map(genre => genre.name).join(' ');
 
     return <>
-        <Link to={backLocationRef.current}>Come back</Link>
-        <div>
+        <Link className={css.backLink} to={backLocationRef.current} >Come back</Link>
+        <div className={css.movieDetails}>
             {poster_path ? (
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+            <img className={css.details}
+            src={`${IMAGE_BASE_URL}w500/${poster_path}`}
             alt={title}
           />
         ) : (
@@ -51,7 +49,7 @@ const Movie = () => {
             alt={title}
           />
         )}
-            <div>
+            <div className={css.movieInfo}>
                 <h1>
                     {title}
                 </h1>
@@ -74,13 +72,13 @@ const Movie = () => {
         </div>
 
         <ul>
-            <p>Additional information</p>
-            <li>
+            <p> Additional information</p>
+            <li className={css.link}>
                 <NavLink to='cast'>
                     Cast
                 </NavLink>                
             </li>
-            <li>
+            <li className={css.link}>
                 <NavLink to='reviews'>
                   Reviews
                 </NavLink>        

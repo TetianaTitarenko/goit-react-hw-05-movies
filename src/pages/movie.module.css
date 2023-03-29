@@ -1,0 +1,57 @@
+.movieDetails {
+    display: flex;
+    margin: 50px 0;
+}
+
+.movieDetails img {
+    width: 300px;
+    margin-right: 50px;
+}
+
+.movieDetails h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.movieDetails h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.movieDetails .backLink {
+    font-size: 18px;
+    margin-bottom: 20px;
+    display: inline-block;
+    color: #0071eb;
+    text-decoration: none;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+}
+
+.details img {
+    float: left;
+    margin-right: 20px;
+}
+
+.details .movieInfo {
+    margin-left: 20px;
+}
+
+.link {
+    display: block;
+    text-decoration: none;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.link:hover {
+    font-weight: bold;
+}
