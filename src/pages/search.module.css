@@ -6,6 +6,7 @@
     gap: 30px;
     margin: 30px;
 }
+
 .link {
     background: white;
     width: 200px;
@@ -22,11 +23,12 @@
     height: 100%;
     transition: color 0.5s ease;
 }
+
 .li :hover,
 .li :focus {
     color: tomato;
 }
 
- .img {
+.img {
     object-fit: fill;
- }
+}

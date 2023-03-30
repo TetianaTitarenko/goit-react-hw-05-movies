@@ -78,7 +78,7 @@ const Movie = () => {
             </div>
         </div>
 
-        <ul>
+        <ul className={css.addInfo}>
             <p> Additional information</p>
             <li className={css.link}>
                 <StyledLink to='cast'>

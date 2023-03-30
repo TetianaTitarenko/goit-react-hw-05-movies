@@ -2,7 +2,8 @@ import { useState} from "react"
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { BASE_URL, API_KEY } from '../components/url';
+import { BASE_URL, API_KEY, IMAGE_BASE_URL } from '../components/url';
+import css from './home.module.css'
 
 const Search = () => {
   const [movies, setMovies] = useState([]);
@@ -43,16 +44,17 @@ const Search = () => {
   );
 
   return <div>
-      <h1>Movie</h1>
       <form onSubmit={onSubmit}>
         <input type="text" value={q} onChange={updateQueryString}/>
         <button type="submit">Search</button>
       </form>
     <Toaster />
-    <ul>
-      {visibleMovies.map((movie) => (
-      <li key={movie.id}>
-        <Link to={`${movie.id}`} state={{from: location}}>{movie.title}</Link>
+    <ul className={css.ul}>
+      {visibleMovies.map(({id, poster_path, title, name}) => (
+      <li key={id} className={css.link} >
+          <Link to={`${id}`} state={{ from: location }} className={css.li}>
+            <img src={`${IMAGE_BASE_URL}w500/${poster_path}`} alt={title || name} className={css.img} />
+            <p>{title || name}</p></Link>
       </li>
     ))}
     </ul>

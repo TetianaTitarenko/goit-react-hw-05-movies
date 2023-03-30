@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
-import { BASE_URL, API_KEY } from '../components/url';
+import { BASE_URL, API_KEY, IMAGE_BASE_URL } from '../components/url';
 import axios from 'axios';
 import css from './home.module.css'
 
@@ -25,12 +25,15 @@ const Home = () => {
       abortController.abort();
     };
   }, []);
-    return <div>
-{movies.map((movie) => (<ul key={movie.id}>
-  <Link to={`movies/${movie.id}`} className={css.link}>{movie.title}</Link>
-      </ul>))
+    return <ul className={css.ul}>
+{movies.map(({id, poster_path, title, name}) => (<li className={css.link} key={id}>
+  <Link to={`movies/${id}`} className={css.li}>
+    <img src={`${IMAGE_BASE_URL}w500/${poster_path}`} alt={title || name} className={css.img} />
+    <p>{title || name}</p>
+    </Link>
+      </li>))
       }
-    </div>
+    </ul>
 }
 
 export default Home

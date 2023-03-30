@@ -10,7 +10,7 @@
     margin: 0;
     padding: 0;
     background-color: #eee;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #f00d0d;
 }
 
 .nav li {
@@ -30,6 +30,7 @@
 
 .content {
     display: block;
+    background: rgb(247, 228, 228);
     flex: 1;
     padding: 1rem;
 }
