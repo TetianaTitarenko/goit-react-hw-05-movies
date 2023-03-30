@@ -28,20 +28,20 @@ const Cast = () => {
     }, [id]);
 
     return (<ul className={css.ul}>
-        {movieDetails.map((movieDetail) =>
-      (<li key={movieDetail.id} className={css.li} >
-        {movieDetail.profile_path ? (
+        {movieDetails.map(({id, profile_path, name}) =>
+      (<li key={id} className={css.li} >
+        {profile_path ? (
             <img className={ css.img}
-            src={`${IMAGE_BASE_URL}w200/${movieDetail.profile_path}`}
-            alt={movieDetail.name}
+            src={`${IMAGE_BASE_URL}w200/${profile_path}`}
+            alt={name}
           />
         ) : (
           <img className={ css.img}
             src={noImage}
-            alt={movieDetail.name}
+            alt={name}
           />
         )}
-        <h3 className={css.text}>{movieDetail.name}</h3>
+        <h3 className={css.text}>{name}</h3>
       </li>))
       }
     </ul>)

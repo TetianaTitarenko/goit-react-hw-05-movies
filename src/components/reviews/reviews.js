@@ -29,13 +29,13 @@ const Reviews = () => {
     }, [id]);
 
     return <ul>        
-        {movieDetails.map((movieDetail) =>
-        (<li key={movieDetail.id} className={css.li}>
+        {movieDetails.map(({id, author, content}) =>
+        (<li key={id} className={css.li}>
             <h2 className={css.title}>
-                {movieDetail.author}
+                {author}
             </h2>
             <p className={css.text}>
-                {movieDetail.content}
+                {content}
             </p>
         </li>))
       }
