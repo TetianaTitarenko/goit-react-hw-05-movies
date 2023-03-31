@@ -24,12 +24,12 @@ const Search = () => {
         if (response.data.results.length === 0) {
           toast.error(`No results found for ${q}`);
         }
-        setMovies(prefMovie => [...prefMovie, ...response.data.results]);
+        setMovies(response.data.results);
       } catch (error) {
         console.log(error.message);
       }
     }
-    fetchData(q);
+    fetchData();
     return () => {
       abortController.abort();
     };
