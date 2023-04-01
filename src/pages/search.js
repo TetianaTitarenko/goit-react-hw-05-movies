@@ -2,20 +2,23 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { BASE_URL, API_KEY, IMAGE_BASE_URL } from '../components/url';
+import { BASE_URL, API_KEY, IMAGE_BASE_URL, noImage } from '../components/url';
 import css from './home.module.css';
 
 const Search = () => {
   const [movies, setMovies] = useState([]);
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [searchInput, setSearchInput] = useState(searchParams.get('q') ?? '');
+
+  const location = useLocation();
   const q = searchParams.get('q') ?? '';
 
   useEffect(() => {
     const abortController = new AbortController();
     async function fetchData() {
       if (q === '' || null) return setMovies([]);
-      if (movies === [] || null) return setMovies([]);
+      // if (movies === [] || null) return setMovies([]);
       try {
         const url = `${BASE_URL}search/movie?query=${q}&${API_KEY}&page=1`;
         const response = await axios.get(url, {
@@ -37,17 +40,18 @@ const Search = () => {
 
   const updateQueryString = e => {
     if (e.target.value === '') {
-      return setSearchParams({});
+      return setSearchInput('');
     }
-    setSearchParams({ q: e.target.value });
+    setSearchInput(e.target.value);
   };
 
   const OnSubmit = e => {
     e.preventDefault();
-    if (q === '') {
-      return setMovies([]);
+    if (searchInput.trim() === '') { 
+      return setSearchParams({});
     }
-    setSearchParams({ q: q });
+    setSearchParams({ q: searchInput });
+    setSearchInput('')
   };
 
   const visibleMovies = movies.filter(movie =>
@@ -57,7 +61,7 @@ const Search = () => {
   return (
     <div>
       <form onSubmit={OnSubmit}>
-        <input type="text" value={q} onChange={updateQueryString} />
+        <input type="text" value={searchInput} onChange={updateQueryString} />
         <button type="submit">Search</button>
       </form>
       <Toaster />
@@ -65,11 +69,17 @@ const Search = () => {
         {visibleMovies.map(({ id, poster_path, title, name }) => (
           <li key={id} className={css.link}>
             <Link to={`${id}`} state={{ from: location }} className={css.li}>
-              <img
-                src={`${IMAGE_BASE_URL}w500/${poster_path}`}
-                alt={title || name}
-                className={css.img}
-              />
+            {poster_path ? (
+            <img className={ css.img}
+            src={`${IMAGE_BASE_URL}w200/${poster_path}`}
+            alt={name}
+          />
+        ) : (
+          <img className={ css.img}
+            src={noImage}
+            alt={name}
+          />
+        )}
               <p>{title || name}</p>
             </Link>
           </li>
