@@ -29,7 +29,9 @@ const Reviews = () => {
     }, [id]);
 
     return <ul>        
-        {movieDetails.map(({id, author, content}) =>
+        {movieDetails.length === 0 ? (<p>
+        We don't have any rewiews for this movie
+      </p> ) : (movieDetails.map(({id, author, content}) =>
         (<li key={id} className={css.li}>
             <h2 className={css.title}>
                 {author}
@@ -37,7 +39,7 @@ const Reviews = () => {
             <p className={css.text}>
                 {content}
             </p>
-        </li>))
+        </li>)))
       }
     </ul>
 }

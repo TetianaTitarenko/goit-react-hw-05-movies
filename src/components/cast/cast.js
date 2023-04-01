@@ -28,7 +28,10 @@ const Cast = () => {
     }, [id]);
 
     return (<ul className={css.ul}>
-        {movieDetails.map(({id, profile_path, name}) =>
+        {movieDetails.length === 0 ? (<p>
+        We don't have any information cast for this movie
+      </p> ) : (
+        movieDetails.map(({id, profile_path, name}) =>
       (<li key={id} className={css.li} >
         {profile_path ? (
             <img className={ css.img}
@@ -42,7 +45,7 @@ const Cast = () => {
           />
         )}
         <h3 className={css.text}>{name}</h3>
-      </li>))
+      </li>)))
       }
     </ul>)
 }
